@@ -5,4 +5,5 @@ app_name = 'quizzes'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('<int:quiz_id>/', views.detail, name='detail'),
 ]

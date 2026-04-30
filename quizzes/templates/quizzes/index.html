@@ -10,7 +10,7 @@
     {% if latest_quizzes %}
         <ul>
             {% for quiz in latest_quizzes %}
-                <li>{{ quiz.title }}</li>
+                <li><a href="{% url 'quizzes:detail' quiz.id %}">{{ quiz.title }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+</head>
+<body>
+    <h1>{{ quiz.title }}</h1>
+    {% if questions %}
+        <ol>
+            {% for question in questions %}
+                <li>{{ question.text }}</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No Questions</p>
+    {% endif %}
+</body>
+</html>
