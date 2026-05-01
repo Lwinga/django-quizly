@@ -10,7 +10,19 @@
     {% if questions %}
         <ol>
             {% for question in questions %}
-                <li>{{ question.text }}</li>
+                <li style="margin-bottom: 24px;">
+                    <p>{{ question.text }}</p>
+                    {% if question.choice_set.count %}
+                        {% for choice in question.choice_set.all %}
+                            <input type="radio" name="choice-{{ question.id }}"
+                                id="choice-{{ question.id }}-{{ choice.id }}" value="{{ choice.id }}"
+                            >
+                            <label for="choice-{{ question.id }}-{{ choice.id }}">{{ choice.text }}</label><br />
+                        {% endfor %}
+                    {% else %}
+                        No choices for this question
+                    {% endif %}
+                </li>
             {% endfor %}
         </ol>
     {% else %}
