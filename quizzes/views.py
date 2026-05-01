@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Count
 from .models import Quiz
 
 def index(request):
@@ -8,8 +9,13 @@ def index(request):
 
 def detail(request, quiz_id):
     quiz = get_object_or_404(Quiz, pk=quiz_id)
+    questions = quiz.question_set.annotate(
+        choice_count=Count('choice')
+    ).filter(
+        choice_count__gte=2
+    ).order_by('created_at').all()
     context = {
         'quiz': quiz,
-        'questions': quiz.question_set.order_by('created_at').all()
+        'questions': questions
     }
     return render(request, 'quizzes/detail.html', context)
