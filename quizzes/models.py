@@ -26,3 +26,15 @@ class Choice(models.Model):
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class Attempt(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    completed_at = models.DateTimeField(default=timezone.now)
+
+
+class Answer(models.Model):
+    attempt = models.ForeignKey(Attempt, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)

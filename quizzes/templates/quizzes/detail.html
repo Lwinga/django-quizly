@@ -8,23 +8,27 @@
 <body>
     <h1>{{ quiz.title }}</h1>
     {% if questions %}
-        <ol>
-            {% for question in questions %}
-                <li style="margin-bottom: 24px;">
-                    <p>{{ question.text }}</p>
-                    {% if question.choice_set.count %}
-                        {% for choice in question.choice_set.all %}
-                            <input type="radio" name="choice-{{ question.id }}"
-                                id="choice-{{ question.id }}-{{ choice.id }}" value="{{ choice.id }}"
-                            >
-                            <label for="choice-{{ question.id }}-{{ choice.id }}">{{ choice.text }}</label><br />
-                        {% endfor %}
-                    {% else %}
-                        No choices for this question
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ol>
+        <form action="{% url 'quizzes:attempt' quiz.id %}" method="POST">
+            {% csrf_token %}
+            <ol>
+                {% for question in questions %}
+                    <li style="margin-bottom: 24px;">
+                        <p>{{ question.text }}</p>
+                        {% if question.choice_set.count %}
+                            {% for choice in question.choice_set.all %}
+                                <input type="radio" name="{{ question.id }}"
+                                    id="choice-{{ question.id }}-{{ choice.id }}" value="{{ choice.id }}"
+                                >
+                                <label for="choice-{{ question.id }}-{{ choice.id }}">{{ choice.text }}</label><br />
+                            {% endfor %}
+                        {% else %}
+                            No choices for this question
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
+            <input type="submit" value="Submit">
+        </form>
     {% else %}
         <p>No Questions</p>
     {% endif %}

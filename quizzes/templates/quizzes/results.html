@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+   <h1>RESULTS</h1>
+   <ol>
+        {% for answer in answers %}
+            <li style="margin-bottom: 24px;">
+                <p>{{ answer.question.text }}</p>
+                {{ answer.choice.text }}
+                {% if answer.choice.is_correct %} ✅ {% else %} ❌ {% endif %}
+            </li>
+        {% endfor %}
+   </ol>
+</body>
+</html>
